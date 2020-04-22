@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>ja_load.htm</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="robots" content="noindex, nofollow" />
+	<script src="include/util.js" type="text/javascript"></script><!-- utility file of handy JS functions -->
+	<script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script><!-- latest jQuery script -->
+	<link rel="stylesheet" type="text/css" href="include/styles.css" /><!-- optional stylesheet reference -->
+	<style type="text/css">
+		/* embedded style rules could go here */
+	</style>
+	<script type="text/javascript">
+		//the following attaches code to window.onload, the jQuery way!
+		$("document").ready(function(){
+			
+			//use AJAX to load external file data via a link with an href of "load_content1"
+			$('a[href="load_content1"]').click(function(e){
+                e.preventDefault(); //stop default action of the link
+                $('#myDiv').load('include/content1.php');  //relative path to file to load
+            });
+            
+            //use AJAX to load external file data via a link with an href of "load_content2"
+			$('a[href="load_content2"]').click(function(e){
+                e.preventDefault(); //stop default action of the link
+                $('#myDiv').load('include/content2.php');  //relative path to file to load
+            });
+            
+            //use AJAX to load external images from 2 different files with an href of "load_content2"
+			$('a[href="load_cats_dogs"]').click(function(e){
+                e.preventDefault(); //stop default action of the link
+                $('#myDiv').html('<div align="center" id="loading"><img src="images/loading.gif" /></div>');//loading gif!
+                $('#myDiv').append('<span id="cat"></span>');//create spans to store images
+                $('#myDiv').append('<span id="dog"></span>');
+                $('#cat').load('include/content1.php #cute-kitten');//load images via id from content pages
+                $('#dog').load('include/content2.php #bad-dog');
+                $('#loading').remove();//remove loading gif!
+                $('#myDiv').prepend('<h3>Who brought this dog and cat here?</h3>');//add a bit of html to the beginning
+            });
+		});
+	</script>
+</head>
+
+<body>
+<h3 align="center">ja_load.htm</h3>
+<div>
+	<a href="load_content1">Load Content 1</a>
+	<a href="load_content2">Load Content 2</a>
+	<a href="load_cats_dogs">Load Cats & Dogs</a>
+</div>
+<div id="myDiv">Here's a div with an id of <b>myDiv</b> that a bit of HTML in it!</div>
+</body>
+</html>
